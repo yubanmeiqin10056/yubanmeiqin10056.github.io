@@ -1,8 +1,6 @@
 {
     "title":"御坂10056号的小站",
-    "subTitle":"御坂妹整的烂活罢了",
-    // 设置博客的头像URL，使用GitHub的默认图标
+    "subTitle":"御坂妹整的烂活",
     "avatarUrl":"https://github.githubassets.com/favicons/favicon.svg",
-    // 指定Gmeek的版本，last表示使用最新版本
     "GMEEK_VERSION":"last"
 }
