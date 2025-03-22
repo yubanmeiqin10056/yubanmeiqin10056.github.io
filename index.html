@@ -38,8 +38,8 @@
             text-decoration: underline;
         }
     </style>
-    <!-- 删除: 引入 markdown-it 库 -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script> -->
+    <!-- 添加: 引入 markdown-it 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
 </head>
 <body>
     <header>
@@ -48,37 +48,54 @@
     <main>
         <p>这是一个简洁的个人博客页面，未来会更新更多内容。</p>
         <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056" target="_blank">我的 GitHub</a></p>
-        <!-- 修改: 动态生成博客文章链接 -->
+        <!-- 修改: 动态生成博客文章内容 -->
         <div id="blog-posts">
             <h2>博客文章</h2>
             <ul id="post-list">
                 <!-- 博客文章链接将通过 JavaScript 动态生成 -->
             </ul>
+            <div id="post-content">
+                <!-- 博客文章内容将通过 JavaScript 动态渲染 -->
+            </div>
         </div>
     </main>
     <footer>
         &copy; 2023 我的个人博客
     </footer>
     <script>
-        // 动态加载 post 文件夹中的 HTML 文件并生成链接
+        // 初始化 markdown-it
+        const md = window.markdownit();
+
+        // 动态加载 post 文件夹中的 Markdown 文件并生成链接
         fetch('post/')
             .then(response => response.text())
             .then(data => {
                 const parser = new DOMParser();
                 const htmlDoc = parser.parseFromString(data, 'text/html');
                 const links = htmlDoc.querySelectorAll('a');
-                const htmlFiles = Array.from(links)
+                const mdFiles = Array.from(links)
                     .map(link => link.href)
-                    .filter(href => href.endsWith('.html'));
+                    .filter(href => href.endsWith('.md'));
                 const postList = document.getElementById('post-list');
-                htmlFiles.forEach(file => {
+                mdFiles.forEach(file => {
                     const listItem = document.createElement('li');
-                    const fileName = file.split('/').pop().replace('.html', '');
-                    listItem.innerHTML = `<a href="${file}">${fileName}</a>`;
+                    const fileName = file.split('/').pop().replace('.md', '');
+                    listItem.innerHTML = `<a href="${file}" onclick="loadMarkdown('${file}'); return false;">${fileName}</a>`;
                     postList.appendChild(listItem);
                 });
             })
             .catch(error => console.error('Error fetching posts:', error));
+
+        // 加载并渲染 Markdown 文件内容
+        function loadMarkdown(mdFile) {
+            fetch(mdFile)
+                .then(response => response.text())
+                .then(mdContent => {
+                    const htmlContent = md.render(mdContent);
+                    document.getElementById('post-content').innerHTML = htmlContent;
+                })
+                .catch(error => console.error('Error loading markdown:', error));
+        }
     </script>
 </body>
 </html>
