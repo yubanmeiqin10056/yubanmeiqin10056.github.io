@@ -19,7 +19,7 @@ function convertMarkdownToHTML(mdFilePath, htmlFilePath) {
 }
 
 // 批量转换 post 文件夹中的所有 Markdown 文件
-const postDir = path.join(__dirname, 'post');
+const postDir = path.join(__dirname, 'post'); // 确保 post 文件夹路径正确
 fs.readdirSync(postDir).forEach(file => {
     if (file.endsWith('.md')) {
         const mdFilePath = path.join(postDir, file);
