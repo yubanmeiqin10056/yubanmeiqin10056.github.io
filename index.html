@@ -38,6 +38,8 @@
             text-decoration: underline;
         }
     </style>
+    <!-- 新增：引入 markdown-it 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
 </head>
 <body>
     <header>
@@ -46,9 +48,46 @@
     <main>
         <p>这是一个简洁的个人博客页面，未来会更新更多内容。</p>
         <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056" target="_blank">我的 GitHub</a></p>
+        <!-- 新增：用于展示博客列表 -->
+        <div id="blog-posts">
+            <h2>博客文章</h2>
+            <ul id="post-list"></ul>
+        </div>
     </main>
     <footer>
         &copy; 2023 我的个人博客
     </footer>
+    <!-- 新增：JavaScript 动态加载 Markdown 文件 -->
+    <script>
+        // 初始化 markdown-it
+        const md = window.markdownit();
+
+        // 获取 post 文件夹中的 Markdown 文件列表
+        fetch('post/')
+            .then(response => response.text())
+            .then(data => {
+                // 解析 HTML 响应，提取文件名
+                const parser = new DOMParser();
+                const htmlDoc = parser.parseFromString(data, 'text/html');
+                const links = htmlDoc.querySelectorAll('a');
+                const markdownFiles = Array.from(links)
+                    .map(link => link.href)
+                    .filter(href => href.endsWith('.md'));
+
+                // 渲染博客列表
+                const postList = document.getElementById('post-list');
+                markdownFiles.forEach(file => {
+                    fetch(file)
+                        .then(response => response.text())
+                        .then(markdownContent => {
+                            const htmlContent = md.render(markdownContent);
+                            const listItem = document.createElement('li');
+                            listItem.innerHTML = `<a href="${file}">${file.split('/').pop()}</a>`;
+                            postList.appendChild(listItem);
+                        });
+                });
+            })
+            .catch(error => console.error('Error fetching posts:', error));
+    </script>
 </body>
 </html>
