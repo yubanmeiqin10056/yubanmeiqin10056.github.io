@@ -13,7 +13,11 @@
             background-repeat: repeat; // 新增平铺设置
             background-size: auto; // 新增自动尺寸
             color: #333; // 新增文字颜色（深灰）
-            text-shadow: 0 0 2px rgba(255,255,255,0.8); // 新增文字描边效果
+            text-shadow: 
+                1px 0 0 rgba(255,255,255,0.56),
+                -1px 0 0 rgba(255,255,255,0.56),
+                0 1px 0 rgba(255,255,255,0.56),
+                0 -1px 0 rgba(255,255,255,0.56); // 新增文字描边效果（修改透明度为56%）
         }
         header {
             text-align: center; // 新增标题居中样式
