@@ -8,31 +8,12 @@
     <!-- 新增: 添加内联样式设置背景图片 -->
     <style>
         body {
-            position: relative; // 新增定位容器
-            background: none !important; // 删除原背景设置
-            color: #333;
-            text-shadow: 
-                1px 0 0 rgba(255,255,255,0.56),
-                -1px 0 0 rgba(255,255,255,0.56),
-                0 1px 0 rgba(255,255,255,0.56),
-                0 -1px 0 rgba(255,255,255,0.56); 
-        }
-
-        /* 新增背景模糊层 */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
             background-image: url('/otherfile/背景模糊.jpg');
             background-position: center;
-            background-repeat: repeat;
-            background-size: auto;
-            filter: blur(10px); // 高斯模糊强度
-            opacity: 0.56; // 透明度56%
-            z-index: -1;
+            background-repeat: repeat; // 新增平铺设置
+            background-size: auto; // 新增自动尺寸
+            color: #333; // 新增文字颜色（深灰）
+            text-shadow: 0 0 2px rgba(255,255,255,0.8); // 新增文字描边效果
         }
         header {
             text-align: center; // 新增标题居中样式
