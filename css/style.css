@@ -1,9 +1,0 @@
-.background-container {
-    background-image: url('otherfile\博客背景.jpg'); /* 替换为你的背景图片路径 */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    padding: 20px;
-    color: white; /* 根据背景图片调整文字颜色 */
-}
