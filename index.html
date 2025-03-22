@@ -15,6 +15,9 @@
             color: #333; // 新增文字颜色（深灰）
             text-shadow: 0 0 2px rgba(255,255,255,0.8); // 新增文字描边效果
         }
+        header {
+            text-align: center; // 新增标题居中样式
+        }
     </style>
 </head>
 <body>
@@ -23,7 +26,6 @@
     </header>
     <main>
         <p>这是一个简洁的个人博客页面，未来会更新更多内容（吧）</p>
-        <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056" target="_blank">我的 GitHub</a></p>
         <section id="blog-posts">
             <h2>博客文章</h2>
             <ul id="post-list">
@@ -32,6 +34,7 @@
         </section>
     </main>
     <footer>
+        <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056" target="_blank">我的 GitHub</a></p> // 新增移动到footer
         &copy; 2025 我的个人博客
     </footer>
     <script src="/js/loadBlogPosts.js"></script>
