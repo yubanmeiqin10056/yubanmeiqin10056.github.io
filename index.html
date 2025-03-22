@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>御坂10056号的博客</title>
     <link rel="stylesheet" href="/css/style.css">
-    <!-- 新增: 添加内联样式设置背景图片 -->
     <style>
         body {
-            background-image: url('/otherfile/背景模糊.jpg');
+            background-image: url('/otherfile/博客背景.jpg');
             background-position: center;
-            background-repeat: repeat; // 新增平铺设置
-            background-size: auto; // 新增自动尺寸
-            color: #333; // 新增文字颜色（深灰）
-            text-shadow: 0 0 2px rgba(255,255,255,0.8); // 新增文字描边效果
+            background-repeat: repeat;
+            background-size: auto;
+            color: #333;
+            text-shadow: 0 0 2px rgba(255,255,255,0.8);
         }
-        header {
-            text-align: center; // 新增标题居中样式
+        header h1 {
+            text-align: center; /* 标题居中 */
         }
     </style>
 </head>
@@ -25,16 +24,14 @@
         <h1>欢迎来到御坂10056号的博客</h1>
     </header>
     <main>
-        <p>这是一个简洁的个人博客页面，未来会更新更多内容（吧）</p>
         <section id="blog-posts">
             <h2>博客文章</h2>
-            <ul id="post-list">
-                <!-- 动态生成的博客文章链接将插入到这里 -->
-            </ul>
+            <ul id="post-list"></ul>
         </section>
     </main>
     <footer>
-        <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056" target="_blank">我的 GitHub</a></p> // 新增移动到footer
+        <p>这是一个简洁的个人博客页面，未来会更新更多内容（吧）</p>
+        <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056" target="_blank">我的 GitHub</a></p>
         &copy; 2025 我的个人博客
     </footer>
     <script src="/js/loadBlogPosts.js"></script>
