@@ -1,1 +1,1 @@
-# yubanmeiqin10056.github.io
+# 萌新尝试依赖github pages搭建个博客
