@@ -1,26 +1,76 @@
 <!-- ... existing code ... -->
 <body>
+    <style>
+        body {
+            background-image: url('/otherfile/博客背景.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
     <header>
         <h1>欢迎来到御坂10056号的博客</h1>
     </header>
     <main>
         <p>这是一个简洁的个人博客页面，未来会更新更多内容。</p>
         <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056" target="_blank">我的 GitHub</a></p>
-        <!-- 修改: 手动添加博客文章链接 -->
         <div id="blog-posts">
             <h2>博客文章</h2>
             <ul id="post-list">
-                <li><a href="post/第一篇博客.html">第一篇博客</a></li>
-                <!-- 添加更多博客文章链接 -->
+                <!-- 动态生成的博客文章链接将插入到这里 -->
             </ul>
         </div>
     </main>
     <footer>
-        &copy; 2025 御坂妹的个人博客
+        &copy; 2023 我的个人博客
     </footer>
-    <!-- Delete: 动态加载 Markdown 文件的 JavaScript -->
-    <!--
-    -->
+    <script>
+        async function loadBlogPosts() {
+            try {
+                const response = await fetch('/post/');
+                if (!response.ok) {
+                    throw new Error('无法加载博客文章列表');
+                }
+                const data = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const links = doc.querySelectorAll('a');
+                const postList = document.getElementById('post-list');
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href.endsWith('.html')) {
+                        const listItem = document.createElement('li');
+                        const postLink = document.createElement('a');
+                        postLink.href = `/post/${href}`;
+                        postLink.textContent = href.replace('.html', '');
+                        listItem.appendChild(postLink);
+                        postList.appendChild(listItem);
+                    }
+                });
+            } catch (error) {
+                console.error('加载博客文章时出错:', error);
+            }
+        }
+        loadBlogPosts();
+    </script>
 </body>
 </html>
 
