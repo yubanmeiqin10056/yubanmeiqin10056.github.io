@@ -27,7 +27,7 @@
         <section id="blog-posts">
             <h2>博客文章</h2>
             <ul>
-              {% for post in site.blog_posts %} // 添加循环显示博客文章
+              {% for post in site.blog_posts %}
               <li><a href="{{ post.url }}">{{ post.title }}</a></li>
               {% endfor %}
             </ul>
