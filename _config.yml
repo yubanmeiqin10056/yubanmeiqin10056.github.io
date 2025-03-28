@@ -1,5 +1,10 @@
 collections:
   blog_posts:
     output: true
-    folder: post  # 明确指定post文件夹路径
-    permalink: /blog/:title/  # 确保URL路径正确
+    folder: ./post  # 使用绝对路径格式
+    permalink: /blog/:title/  # 保持原有路径结构
+    # 添加排序配置确保最新文章在前，现在改用front matter的date字段
+    sort_by: date
+    sort_order: descending
+    # 修改注释说明
+    # 文件名格式不再强制要求日期前缀，但需在front matter中添加date字段
