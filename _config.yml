@@ -3,8 +3,6 @@ collections:
     output: true
     folder: ./post  # 使用绝对路径格式
     permalink: /blog/:title/  # 保持原有路径结构
-    # 添加排序配置确保最新文章在前，现在改用front matter的date字段
-    sort_by: date
-    sort_order: descending
-    # 修改注释说明
-    # 文件名格式不再强制要求日期前缀，但需在front matter中添加date字段
+    # 添加排序配置确保最新文章在前
+    # 请在post文件中添加格式如2024-01-01-title.md的文件名
+    # 或在front matter添加日期字段
