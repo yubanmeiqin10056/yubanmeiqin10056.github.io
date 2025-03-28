@@ -24,9 +24,14 @@
         <h1>欢迎来到御坂10056号的博客</h1>
     </header>
     <main>
+        <!-- 该文件无需修改，原有Liquid语法 {% for post in site.blog_posts %} 会自动适配配置变更 -->
         <section id="blog-posts">
             <h2>博客文章</h2>
-            <ul id="post-list"></ul>
+            <ul id="post-list">
+            {% for post in site.blog_posts %}
+                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% endfor %}
+            </ul>
         </section>
     </main>
     <footer>
@@ -34,6 +39,6 @@
         <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056" target="_blank">我的 GitHub仓库</a></p>
         &copy; 2025 我的个人博客
     </footer>
-    <script src="/js/loadBlogPosts.js"></script>
+
 </body>
 </html>
