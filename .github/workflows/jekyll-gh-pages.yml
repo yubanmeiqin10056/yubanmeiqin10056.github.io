@@ -50,6 +50,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:  # 新增with参数配置
+          publish: ./_site  # 指定部署目录路径
       - name: Debug output
         run: |
           ls -la ./_site/blog  # 检查生成目录是否存在
