@@ -1,5 +1,0 @@
-collections:
-  blog_posts:
-    output: true
-    folder: post  # 明确指定post文件夹路径
-    permalink: /post/:title/ # 修改URL路径格式
