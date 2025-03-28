@@ -1,5 +1,5 @@
 collections:
   blog_posts:
     output: true
-    folder: post  # 修改前是 folder: poster
-    permalink: /blog/:title/
+    folder: post  # 明确指定post文件夹路径
+    permalink: /blog/:title/  # 确保URL路径正确
