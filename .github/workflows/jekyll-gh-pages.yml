@@ -33,9 +33,8 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./  # 源目录
-          destination: ./_site  # 输出目录
-          exclude: [".git"]  # 添加排除项
+          source: ./
+          destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
@@ -50,6 +49,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Debug output
-        run: |
-          ls -la ./_site/blog  # 检查生成目录是否存在
