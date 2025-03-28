@@ -3,4 +3,10 @@ collections:
   blog_posts:
     output: true
     folder: post  # 明确指定post文件夹路径
-    permalink: post/ # 确保URL路径正确
+    permalink: /post/:title/ # 修改URL路径格式
+defaults:
+  - scope:
+      path: "post" # 确保路径指向正确的文件夹
+      type: "blog_posts"
+    values:
+      layout: "post" # 设置默认布局为post

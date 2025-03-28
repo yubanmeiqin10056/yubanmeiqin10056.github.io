@@ -9,8 +9,8 @@
         body {
             background-image: url('/otherfile/背景模糊.jpg');
             background-position: center;
-            background-repeat: repeat;
-            background-size: auto;
+            background-repeat: no-repeat; // 修改背景图片不重复
+            background-size: cover; // 修改背景图片覆盖整个屏幕
             color: #333;
             text-shadow: 0 0 2px rgba(255,255,255,0.8);
         }
@@ -27,7 +27,9 @@
         <section id="blog-posts">
             <h2>博客文章</h2>
             <ul>
-              <li><a href="{{ post }}">{{ post.title }}</a></li>
+              {% for post in site.blog_posts %} // 添加循环显示博客文章
+              <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+              {% endfor %}
             </ul>
         </section>
     </main>
@@ -36,7 +38,5 @@
         <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056" target="_blank">我的 GitHub仓库</a></p>
         &copy; 2025 我的个人博客
     </footer>
-
 </body>
 </html>
-
