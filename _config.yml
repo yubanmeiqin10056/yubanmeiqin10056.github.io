@@ -1,3 +1,4 @@
+# 现有配置已正确设置collections，无需修改
 collections:
   blog_posts:
     output: true
