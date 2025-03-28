@@ -1,6 +1,6 @@
-# 现有配置已正确设置collections，无需修改
+title: 御坂网络服务
 collections:
   blog_posts:
     output: true
     folder: post  # 明确指定post文件夹路径
-    permalink: /blog/:title/  # 确保URL路径正确
+    permalink: post/ # 确保URL路径正确
