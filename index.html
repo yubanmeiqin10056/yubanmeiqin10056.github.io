@@ -4,18 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>御坂10056号的博客</title>
-    <link rel="stylesheet" href="/css/style.css">
     <style>
         body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
             background-image: url('/otherfile/背景模糊.jpg');
             background-position: center;
-            background-repeat: repeat; /* 修改背景图片不重复 */
-            background-size: auto; /* 修改背景图片覆盖整个屏幕 */
+            background-repeat: no-repeat;
+            background-size: cover;
             color: #333;
-            text-shadow: 0 0 2px rgba(255,255,255,0.8);
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
         }
         header h1 {
-            text-align: center; /* 标题居中 */
+            text-align: center;
+        }
+        .post-list {
+            margin-top: 20px;
+        }
+        .post-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .post-item a {
+            text-decoration: none;
+            color: #333;
+        }
+        .post-item a:hover {
+            text-decoration: underline;
+        }
+        .post-date {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -26,10 +50,13 @@
     <main>
         <section id="blog-posts">
             <h2>博客文章</h2>
-            <ul>
-              
-              <li><a href="index.html"> 博客页面 </a></li>
-              
+            <ul class="post-list">
+                {% for post in site.blog_posts %}
+                <li class="post-item">
+                    <a href="{{ post.url }}">{{ post.title }}</a>
+                    <div class="post-date">发布于 {{ post.date | date: "%Y-%m-%d" }}</div>
+                </li>
+                {% endfor %}
             </ul>
         </section>
     </main>
