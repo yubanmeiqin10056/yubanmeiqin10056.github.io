@@ -5,7 +5,7 @@ collections:
     folder: post  # 确保路径与GitHub仓库一致
 defaults:
   - scope:
-      path: "post" # 确保路径指向正确的文件夹
+      path: "yubanmeiqin10056.github.io/post" # 确保路径指向正确的文件夹
       type: "blog_posts"
     values:
       layout: "post" # 设置默认布局为post
