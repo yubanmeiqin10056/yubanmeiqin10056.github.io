@@ -43,14 +43,14 @@
         @media (max-width: 768px) {
             body {
                 background-image: url('/otherfile/手机背景.png');
-                background-size: cover;
+                background-size: contain; // 修改为contain以使图片居中显示
                 background-position: center;
             }
         }
         @media (min-width: 769px) {
             body {
                 background-image: url('/otherfile/背景模糊.jpg');
-                background-size: cover;
+                background-size: cover; // 修改为cover以使图片铺满屏幕
                 background-position: center;
             }
         }
@@ -78,6 +78,3 @@
     </footer>
 </body>
 </html>
-                   
-                    
-                
