@@ -2,7 +2,7 @@
   <header>
     <h1>{{ page.title | default: "这是大标题?" }}</h1>
     {% if page.date %}
-    <p class="post">发布于 {{ page.date | date: "%Y-%m-%d" }}</p>
+    <p>发布于 {{ page.date | date: "%Y-%m-%d" }}</p>
     {% endif %}
   </header>
   <div class="post-content">
