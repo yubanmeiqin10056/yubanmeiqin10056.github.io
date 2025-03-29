@@ -1,11 +1,11 @@
+title: 御坂网络服务
 collections:
-  blog_posts:
+  posts:
     output: true
-    permalink: /post/:path/ # 修改URL路径格式
-    folder: post  # 确保路径与GitHub仓库一致
+    permalink: /post/:title/
 defaults:
   - scope:
-      path: "post" # 确保路径指向正确的文件夹
-      type: "blog_posts"
+      path: "post"
+      type: "posts"
     values:
-      layout: "post" # 设置默认布局为post
+      layout: "post"
