@@ -1,7 +1,7 @@
 collections:
   blog_posts:
     output: true
-    permalink: /post/:title/ # 修改URL路径格式
+    permalink: /post/:path/ # 修改URL路径格式
     folder: post  # 确保路径与GitHub仓库一致
 defaults:
   - scope:
