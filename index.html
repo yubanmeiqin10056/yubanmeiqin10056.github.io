@@ -1,3 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>御坂10056号的博客</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background-image: url('/otherfile/背景模糊.jpg');
+            background-position: center;
+            background-repeat: no-repeat; // 修改背景图片不重复
+            background-size: cover; // 修改背景图片覆盖整个屏幕
+            color: #333;
+            text-shadow: 0 0 2px rgba(255,255,255,0.8);
+        }
+        header h1 {
+            text-align: center; /* 标题居中 */
+        }
+    </style>
+</head>
 <body>
     <header>
         <h1>欢迎来到御坂10056号的博客</h1>
@@ -6,8 +27,8 @@
         <section id="blog-posts">
             <h2>博客文章</h2>
             <ul>
-              {% for post in site.collections.blog_posts.docs %}
-              <li><a href="{{ /post/:title/ }}">{{ post.title }}</a></li>
+              {% for post in site.blog_posts %}
+              <li><a href="{{ post.url }}">{{ post.title }}</a></li>
               {% endfor %}
             </ul>
         </section>
@@ -18,3 +39,4 @@
         &copy; 2025 我的个人博客
     </footer>
 </body>
+</html>
