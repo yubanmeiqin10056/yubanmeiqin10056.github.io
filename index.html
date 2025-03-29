@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>御坂10056号的博客</title>
     <style>
+        /* 全局样式设置 */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -13,44 +14,60 @@
             padding: 20px;
             background-position: center;
             background-repeat: no-repeat;
-            background-size: cover; // 修改为cover以使图片铺满屏幕
+            background-size: cover; /* 背景图片铺满屏幕 */
             color: #333;
-            text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.8); /* 文字阴影以增强可读性 */
         }
+
+        /* 标题居中显示 */
         header h1 {
             text-align: center;
         }
+
+        /* 博客文章列表样式 */
         .post-list {
             margin-top: 20px;
         }
+
+        /* 每篇文章的样式 */
         .post-item {
             margin-bottom: 20px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #eee; /* 分隔线 */
         }
+
+        /* 文章链接样式 */
         .post-item a {
             text-decoration: none;
             color: #333;
         }
+
+        /* 鼠标悬停时添加下划线效果 */
         .post-item a:hover {
             text-decoration: underline;
         }
+
+        /* 文章日期样式 */
         .post-date {
             color: #666;
             font-size: 0.9em;
             margin-top: 5px;
         }
+
+        /* 响应式设计：手机端背景图片 */
         @media (max-width: 768px) {
             body {
                 background-image: url('/otherfile/手机背景.png');
-                background-size: cover; // 修改为cover以使图片铺满屏幕
+                background-size: cover; /* 背景图片铺满屏幕 */
                 background-position: center;
             }
         }
+
+        /* 响应式设计：桌面端背景图片 */
         @media (min-width: 769px) {
             body {
                 background-image: url('/otherfile/背景模糊.jpg');
-                background-size: cover; // 修改为cover以使图片铺满屏幕
+                background-size: cover; /* 背景图片铺满屏幕 */
                 background-position: center;
             }
         }
@@ -64,10 +81,11 @@
         <section id="blog-posts">
             <h2>博客文章</h2>
             <ul class="post-list">
-                 <li class="post-item">
+                <!-- 示例博客文章 -->
+                <li class="post-item">
                     <a href="post.html">博客链接</a>
+                    <div class="post-date">发布日期：2023-10-01</div> <!-- 添加示例日期 -->
                 </li>
-           
             </ul>
         </section>
     </main>
