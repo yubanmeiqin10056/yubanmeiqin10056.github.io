@@ -1,7 +1,9 @@
 # 御坂10056号的个人博客
-[御坂10056号的个人博客](https://yubanmeiqin10056.github.io/)
+[博客站点](https://yubanmeiqin10056.github.io/)
 
+~~开始之前容许我发个颠，人活着就是为了友利奈绪！·~~
 ![博客封面](/otherfile/手机背景.png)
+
 ## 项目介绍
 欢迎来到御坂10056号的个人博客！这个项目是一个由苦逼初三中学生独立完成的静态博客网站😭，旨在分享学习心得、技术笔记和个人生活点滴。通过使用GitHub Pages进行托管，实现了一个简洁而功能齐全的博客平台。
 
@@ -35,7 +37,7 @@
 
 ## 联系方式
 - **GitHub**：[yubanmeiqin10056](https://github.com/yubanmeiqin10056)
-- **Email**：[your-email@example.com](389575503.com)
-
+- **Email**：389575503@qq.com
+- **B站**：[御坂10056号](https://space.bilibili.com/646374658)
 感谢大家的支持和关注！如果有任何问题或建议，欢迎随时联系我。
 （以上大部分都是AI总结的...）
