@@ -20,24 +20,22 @@ layout: default
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const postsList = document.getElementById('blog-posts-list');
-    fetch('/post/')
-        .then(response => response.text())
+    fetch('https://api.github.com/repos/yubanmeiqin10056/yubanmeiqin10056.github.io/contents/post')
+        .then(response => response.json())
         .then(data => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(data, 'text/html');
-            const links = htmlDoc.querySelectorAll('a');
-            links.forEach(link => {
-                const postTitle = link.textContent;
-                const postUrl = link.getAttribute('href');
-                const listItem = document.createElement('li');
-                const anchor = document.createElement('a');
-                anchor.href = `/post/${postUrl}`;
-                anchor.textContent = postTitle;
-                listItem.appendChild(anchor);
-                postsList.appendChild(listItem);
+            data.forEach(file => {
+                if (file.name.endsWith('.md')) {
+                    const postTitle = file.name.replace('.md', '');
+                    const postUrl = file.download_url;
+                    const listItem = document.createElement('li');
+                    const anchor = document.createElement('a');
+                    anchor.href = `/post/${file.name}`;
+                    anchor.textContent = postTitle;
+                    listItem.appendChild(anchor);
+                    postsList.appendChild(listItem);
+                }
             });
         })
         .catch(error => console.error('Error fetching blog posts:', error));
 });
-
 </script>
