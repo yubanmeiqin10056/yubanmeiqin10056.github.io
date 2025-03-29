@@ -1,5 +1,5 @@
 # 御坂10056号的个人博客
-[博客站点](https://yubanmeiqin10056.github.io/)
+[点击此处前往博客站点](https://yubanmeiqin10056.github.io/)
 
 ~~开始之前容许我发个颠，人活着就是为了友利奈绪！·~~
 ![博客封面](/otherfile/手机背景.png)
