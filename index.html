@@ -9,8 +9,8 @@
         body {
             background-image: url('/otherfile/背景模糊.jpg');
             background-position: center;
-            background-repeat: no-repeat; /* 修改背景图片不重复 */
-            background-size: cover; /* 修改背景图片覆盖整个屏幕 */
+            background-repeat: repeat; /* 修改背景图片不重复 */
+            background-size: auto; /* 修改背景图片覆盖整个屏幕 */
             color: #333;
             text-shadow: 0 0 2px rgba(255,255,255,0.8);
         }
@@ -27,8 +27,8 @@
         <section id="blog-posts">
             <h2>博客文章</h2>
             <ul>
-              {% for post in site.blog_posts %}
-              <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+              {% for post in site.posts %}
+              <li><a href="{{ post.url | relative_url }}">{{ ciallo }}</a></li>
               {% endfor %}
             </ul>
         </section>

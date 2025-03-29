@@ -1,9 +1,8 @@
-title: 御坂网络服务
 collections:
   blog_posts:
     output: true
     permalink: /post/:title/ # 修改URL路径格式
-    folder: post  # 明确指定post文件夹路径
+    folder: post  # 确保路径与GitHub仓库一致
 defaults:
   - scope:
       path: "post" # 确保路径指向正确的文件夹
