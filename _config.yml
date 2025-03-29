@@ -1,8 +1,13 @@
+# 定义网站标题
 title: 御坂网络服务
+
+# 定义文章集合
 collections:
   posts:
     output: true
     permalink: /post/:title/
+
+# 设置默认值
 defaults:
   - scope:
       path: "post"
