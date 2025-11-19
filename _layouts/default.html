@@ -8,14 +8,21 @@
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 15px;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
             background-position: center;
             background-repeat: no-repeat;
+            background-attachment: fixed;
             background-size: cover;
             color: #333;
             text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
         }
         
         header h1 {
@@ -95,7 +102,6 @@
             margin-top: 30px;
             text-align: center;
             color: #7f8c8d;
-            border-top: 1px solid #ecf0f1;
             padding-top: 15px;
             font-size: 0.9em;
         }
@@ -200,31 +206,37 @@
         <h1>{{ site.title }}</h1>
     </header>
     
-    <main>
-        {% if page.url != '/' %}
-        <a href="/" class="back-link">← 返回首页</a>
-        {% endif %}
+    <div class="container">
+        <header>
+            <h1>{{ site.title }}</h1>
+        </header>
         
-        <div class="post-content">
-            {% if page.title %}
-            <h1>{{ page.title }}</h1>
+        <main>
+            {% if page.url != '/' %}
+            <a href="/" class="back-link">← 返回首页</a>
             {% endif %}
             
-            {% if page.date %}
-            <div class="post-meta">
-                发布时间：{{ page.date | date: "%Y年%m月%d日" }}
+            <div class="post-content">
+                {% if page.title %}
+                <h1>{{ page.title }}</h1>
+                {% endif %}
+                
+                {% if page.date %}
+                <div class="post-meta">
+                    发布时间：{{ page.date | date: "%Y年%m月%d日" }}
+                </div>
+                {% endif %}
+                
+                {{ content }}
             </div>
-            {% endif %}
-            
-            {{ content }}
-        </div>
-    </main>
-    
-    <footer>
-        <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
-        <div class="repo-link">
-            <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">📦 源代码仓库</a>
-        </div>
-    </footer>
+        </main>
+        
+        <footer>
+            <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+            <div class="repo-link">
+                <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">📦 源代码仓库</a>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
