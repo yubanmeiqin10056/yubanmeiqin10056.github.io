@@ -1,100 +1,102 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>御坂10056号的博客</title>
-    <style>
-        /* 全局样式设置 */
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover; /* 背景图片铺满屏幕 */
-            color: #333;
-        }
+---
+layout: default
+---
 
-        /* 博客文章列表样式 */
-        .post-list {
-            margin-top: 20px;
-        }
+<div class="posts-list">
+    {% for post in site.posts %}
+    <article class="post-item">
+        <header class="post-header">
+            <h2>
+                <a href="{{ post.url | relative_url }}">
+                    {{ post.title | escape }}
+                </a>
+            </h2>
+            <p class="post-meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+                    {{ post.date | date: "%Y年%m月%d日" }}
+                </time>
+                {% if post.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ post.author }}</span></span>{% endif %}
+            </p>
+        </header>
 
-        /* 每篇文章的样式 */
-        .post-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee; /* 分隔线 */
-        }
+        <div class="post-excerpt">
+            {% if post.excerpt %}
+            {{ post.excerpt | strip_html }}
+            {% else %}
+            {{ post.content | strip_html | truncatewords: 50 }}
+            {% endif %}
+        </div>
 
-        /* 文章链接样式 */
-        .post-item a {
-            text-decoration: none;
-            color: #333;
-        }
+        <footer class="post-footer">
+            <a class="read-more" href="{{ post.url | relative_url }}">阅读全文 →</a>
+        </footer>
+    </article>
+    {% endfor %}
+</div>
 
-        /* 鼠标悬停时添加下划线效果 */
-        .post-item a:hover {
-            text-decoration: underline;
-        }
-
-        /* 文章日期样式 */
-        .post-date {
-            color: #0b749e;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-
-        /* 响应式设计：手机端背景图片 */
-        @media (max-width: 768px) {
-            body {
-                background-image: url('/otherfile/手机背景.png');
-                background-size: cover; /* 背景图片铺满屏幕 */
-                background-position: center;
-            }
-        }
-
-        /* 响应式设计：桌面端背景图片 */
-        @media (min-width: 769px) {
-            body {
-                background-image: url('/otherfile/背景模糊.jpg');
-                background-size: cover; /* 背景图片铺满屏幕 */
-                background-position: center;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <!-- 标题样式 -->
-        <style>
-            /* 标题样式定义 */
-            header h1 {
-                text-align: center;
-                color: #add8e6; /* 淡蓝色 */
-            }
-        </style>
-        <!-- 标题内容 -->
-        <h1>欢迎来到御坂10056号的博客</h1>
-    </header>
-    <main>
-        <section id="blog-posts">
-            <h2>博客文章</h2>
-            <ul class="post-list">
-                <!-- 示例博客文章 -->
-                <li class="post-item">
-                    <a href="post.html">博客链接</a>
-                </li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>这是一个简洁的个人博客页面，未来会更新更多内容（吧）</p>
-        <p>你可以通过以下链接访问我的 GitHub：<a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">我的 GitHub仓库</a></p>
-        &copy; 2025 我的个人博客
-    </footer>
-</body>
-</html>
+<style>
+    .posts-list {
+        margin-top: 30px;
+    }
+    
+    .post-item {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 25px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .post-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .post-header {
+        margin-bottom: 15px;
+    }
+    
+    .post-header h2 {
+        margin: 0 0 10px 0;
+        color: #2c3e50;
+    }
+    
+    .post-header h2 a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s ease;
+    }
+    
+    .post-header h2 a:hover {
+        color: #3498db;
+    }
+    
+    .post-meta {
+        color: #7f8c8d;
+        font-size: 0.9em;
+        margin: 0;
+    }
+    
+    .post-excerpt {
+        color: #34495e;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+    
+    .post-footer {
+        margin-top: 15px;
+    }
+    
+    .read-more {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    
+    .read-more:hover {
+        color: #2980b9;
+        text-decoration: underline;
+    }
+</style>

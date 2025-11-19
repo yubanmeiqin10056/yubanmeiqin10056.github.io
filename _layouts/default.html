@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }} - {{ page.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #333;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        header h1 {
+            text-align: center;
+            color: #add8e6;
+        }
+        
+        .post-content {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6 {
+            color: #2c3e50;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        
+        .post-content h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .post-content p {
+            margin-bottom: 1em;
+        }
+        
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .post-content code {
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .post-content pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        .post-content blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+            margin-left: 0;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        
+        .post-meta {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 20px;
+        }
+        
+        /* 响应式设计：手机端背景图片 */
+        @media (max-width: 768px) {
+            body {
+                background-image: url('/otherfile/手机背景.png');
+                background-size: cover;
+                background-position: center;
+            }
+        }
+
+        /* 响应式设计：桌面端背景图片 */
+        @media (min-width: 769px) {
+            body {
+                background-image: url('/otherfile/背景模糊.jpg');
+                background-size: cover;
+                background-position: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ site.title }}</h1>
+    </header>
+    
+    <main>
+        {% if page.url != '/' %}
+        <a href="/" class="back-link">← 返回首页</a>
+        {% endif %}
+        
+        <div class="post-content">
+            {% if page.title %}
+            <h1>{{ page.title }}</h1>
+            {% endif %}
+            
+            {% if page.date %}
+            <div class="post-meta">
+                发布时间：{{ page.date | date: "%Y年%m月%d日" }}
+            </div>
+            {% endif %}
+            
+            {{ content }}
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+        <p>由 <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> 强力驱动</p>
+    </footer>
+</body>
+</html>

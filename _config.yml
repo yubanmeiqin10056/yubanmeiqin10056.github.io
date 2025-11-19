@@ -1,16 +1,48 @@
-# 定义网站标题
-title: 御坂网络服务
+# 网站设置
+title: 御坂10056号的博客
+description: "御坂10056号的个人博客，分享学习心得和技术笔记"
+baseurl: ""
+url: "https://yubanmeiqin10056.github.io"
 
-# 定义文章集合
+# 构建设置
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 文章设置
 collections:
   posts:
     output: true
-    permalink: /post/:title/
+    permalink: /:categories/:year/:month/:day/:title/
 
-# 设置默认值
+# 默认设置
 defaults:
   - scope:
-      path: "post"
+      path: ""
       type: "posts"
     values:
       layout: "post"
+      author: "御坂10056号"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# 排除文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - README.md
+  - LICENSE
+  - CNAME
