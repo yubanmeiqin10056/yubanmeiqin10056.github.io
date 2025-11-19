@@ -2,7 +2,19 @@
 layout: default
 ---
 
-<div class="posts-list">
+<div class="welcome-section">
+    <h2>欢迎来到御坂10056号的博客</h2>
+    <p>这里记录着我的学习心得、技术笔记和生活点滴。作为一个初三学生，我正在探索编程世界的奥秘。</p>
+    
+    <nav class="navigation">
+        <a href="#posts" class="nav-link">📝 查看博客文章</a>
+        <a href="/post/" class="nav-link">🗂️ 博客文章列表</a>
+        <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" class="nav-link" target="_blank">🔗 源代码仓库</a>
+    </nav>
+</div>
+
+<div class="posts-list" id="posts">
+    <h2>最新文章</h2>
     {% for post in site.posts %}
     <article class="post-item">
         <header class="post-header">
@@ -34,9 +46,69 @@ layout: default
     {% endfor %}
 </div>
 
+<div class="repository-info">
+    <h3>关于这个博客</h3>
+    <p>这个博客使用 Jekyll 构建，托管在 GitHub Pages 上。所有源代码都公开在 GitHub 上，欢迎访问和交流！</p>
+    <p><strong>仓库地址：</strong> <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io</a></p>
+</div>
+
 <style>
+    .welcome-section {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .welcome-section h2 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+    
+    .welcome-section p {
+        color: #34495e;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+    
+    .navigation {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .nav-link {
+        display: inline-block;
+        background-color: #3498db;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-link:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        color: white;
+        text-decoration: none;
+    }
+    
     .posts-list {
         margin-top: 30px;
+    }
+    
+    .posts-list h2 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2em;
     }
     
     .post-item {
@@ -96,6 +168,37 @@ layout: default
     }
     
     .read-more:hover {
+        color: #2980b9;
+        text-decoration: underline;
+    }
+    
+    .repository-info {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 8px;
+        margin-top: 40px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .repository-info h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+    
+    .repository-info p {
+        color: #34495e;
+        margin-bottom: 10px;
+        line-height: 1.6;
+    }
+    
+    .repository-info a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    .repository-info a:hover {
         color: #2980b9;
         text-decoration: underline;
     }

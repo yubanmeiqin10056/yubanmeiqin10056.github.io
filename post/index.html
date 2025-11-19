@@ -1,0 +1,114 @@
+---
+layout: default
+title: 博客文章列表
+---
+
+<div class="posts-archive">
+    <h2>所有博客文章</h2>
+    
+    {% assign posts = site.posts | sort: 'date' | reverse %}
+    {% for post in posts %}
+    <article class="post-item">
+        <header class="post-header">
+            <h2>
+                <a href="{{ post.url | relative_url }}">
+                    {{ post.title | escape }}
+                </a>
+            </h2>
+            <p class="post-meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+                    {{ post.date | date: "%Y年%m月%d日" }}
+                </time>
+                {% if post.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ post.author }}</span></span>{% endif %}
+            </p>
+        </header>
+
+        <div class="post-excerpt">
+            {% if post.excerpt %}
+            {{ post.excerpt | strip_html }}
+            {% else %}
+            {{ post.content | strip_html | truncatewords: 50 }}
+            {% endif %}
+        </div>
+
+        <footer class="post-footer">
+            <a class="read-more" href="{{ post.url | relative_url }}">阅读全文 →</a>
+        </footer>
+    </article>
+    {% endfor %}
+</div>
+
+<style>
+    .posts-archive {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .posts-archive h2 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2em;
+    }
+    
+    .post-item {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 25px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .post-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .post-header {
+        margin-bottom: 15px;
+    }
+    
+    .post-header h2 {
+        margin: 0 0 10px 0;
+        color: #2c3e50;
+    }
+    
+    .post-header h2 a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s ease;
+    }
+    
+    .post-header h2 a:hover {
+        color: #3498db;
+    }
+    
+    .post-meta {
+        color: #7f8c8d;
+        font-size: 0.9em;
+        margin: 0;
+    }
+    
+    .post-excerpt {
+        color: #34495e;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+    
+    .post-footer {
+        margin-top: 15px;
+    }
+    
+    .read-more {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    
+    .read-more:hover {
+        color: #2980b9;
+        text-decoration: underline;
+    }
+</style>
