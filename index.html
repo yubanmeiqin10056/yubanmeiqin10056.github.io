@@ -9,12 +9,6 @@ layout: default
     <nav class="navigation">
         <a href="#posts" class="nav-link">📝 博客文章</a>
         <a href="/post/" class="nav-link">🗂️ 文章列表</a>
-        <div class="repo-toggle">
-            <span class="nav-link repo-link" onclick="toggleRepo()">🔗 源代码</span>
-            <div id="repo-info" class="repo-info" style="display: none;">
-                <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">GitHub仓库</a>
-            </div>
-        </div>
     </nav>
 </div>
 
@@ -54,16 +48,7 @@ layout: default
     {% endfor %}
 </div>
 
-<script>
-function toggleRepo() {
-    var repoInfo = document.getElementById("repo-info");
-    if (repoInfo.style.display === "none") {
-        repoInfo.style.display = "block";
-    } else {
-        repoInfo.style.display = "none";
-    }
-}
-</script>
+
 
 <style>
     .welcome-section {
@@ -93,7 +78,7 @@ function toggleRepo() {
         flex-wrap: wrap;
     }
     
-    .nav-link, .repo-link {
+    .nav-link {
         display: inline-block;
         background-color: #3498db;
         color: white;
@@ -106,42 +91,12 @@ function toggleRepo() {
         cursor: pointer;
     }
     
-    .nav-link:hover, .repo-link:hover {
+    .nav-link:hover {
         background-color: #2980b9;
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         color: white;
         text-decoration: none;
-    }
-    
-    .repo-toggle {
-        position: relative;
-    }
-    
-    .repo-info {
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: white;
-        border: 1px solid #3498db;
-        border-radius: 8px;
-        padding: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        z-index: 10;
-        min-width: 150px;
-        text-align: center;
-    }
-    
-    .repo-info a {
-        display: block;
-        color: #3498db;
-        text-decoration: none;
-        padding: 5px 0;
-    }
-    
-    .repo-info a:hover {
-        text-decoration: underline;
     }
     
     .posts-list {
@@ -232,7 +187,7 @@ function toggleRepo() {
             gap: 10px;
         }
         
-        .nav-link, .repo-link {
+        .nav-link {
             padding: 8px 16px;
             font-size: 0.9em;
         }
@@ -255,12 +210,7 @@ function toggleRepo() {
             font-size: 0.95em;
         }
         
-        .repo-info {
-            left: 0;
-            right: 0;
-            transform: none;
-            min-width: auto;
-        }
+        
     }
     
     @media (max-width: 480px) {
@@ -273,7 +223,7 @@ function toggleRepo() {
             align-items: center;
         }
         
-        .nav-link, .repo-link {
+        .nav-link {
             width: 80%;
             text-align: center;
             margin-bottom: 5px;
