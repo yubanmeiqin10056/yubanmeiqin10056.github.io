@@ -10,7 +10,7 @@
             line-height: 1.6;
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -21,13 +21,14 @@
         header h1 {
             text-align: center;
             color: #add8e6;
+            margin-bottom: 20px;
         }
         
         .post-content {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 8px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         
         .post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6 {
@@ -76,12 +77,12 @@
         .post-meta {
             color: #7f8c8d;
             font-size: 0.9em;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .back-link {
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #3498db;
             text-decoration: none;
         }
@@ -91,11 +92,45 @@
         }
         
         footer {
-            margin-top: 40px;
+            margin-top: 30px;
             text-align: center;
             color: #7f8c8d;
             border-top: 1px solid #ecf0f1;
-            padding-top: 20px;
+            padding-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .repo-toggle {
+            margin-top: 10px;
+        }
+        
+        .repo-link {
+            color: #3498db;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .repo-link:hover {
+            text-decoration: underline;
+        }
+        
+        .repo-info {
+            display: none;
+            margin-top: 5px;
+            padding: 8px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+            border: 1px solid #3498db;
+        }
+        
+        .repo-info a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .repo-info a:hover {
+            text-decoration: underline;
         }
         
         /* 响应式设计：手机端背景图片 */
@@ -104,6 +139,31 @@
                 background-image: url('/otherfile/手机背景.png');
                 background-size: cover;
                 background-position: center;
+                padding: 10px;
+            }
+            
+            header h1 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+            
+            .post-content {
+                padding: 15px;
+                margin-top: 10px;
+            }
+            
+            .post-content h1 {
+                font-size: 1.4em;
+            }
+            
+            .post-content h2 {
+                font-size: 1.3em;
+            }
+            
+            footer {
+                margin-top: 20px;
+                padding-top: 10px;
+                font-size: 0.85em;
             }
         }
 
@@ -113,6 +173,24 @@
                 background-image: url('/otherfile/背景模糊.jpg');
                 background-size: cover;
                 background-position: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            
+            .post-content {
+                padding: 12px;
+            }
+            
+            .post-content h1 {
+                font-size: 1.3em;
+            }
+            
+            .post-content h2 {
+                font-size: 1.2em;
             }
         }
     </style>
@@ -143,9 +221,24 @@
     </main>
     
     <footer>
-        <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
-        <p>由 <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> 强力驱动</p>
-        <p><strong>📦 仓库地址：</strong> <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io</a></p>
+        <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
+        <div class="repo-toggle">
+            <span class="repo-link" onclick="toggleRepo()">📦 源代码仓库</span>
+            <div id="repo-info" class="repo-info">
+                <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">GitHub仓库</a>
+            </div>
+        </div>
     </footer>
+    
+    <script>
+    function toggleRepo() {
+        var repoInfo = document.getElementById("repo-info");
+        if (repoInfo.style.display === "none" || repoInfo.style.display === "") {
+            repoInfo.style.display = "block";
+        } else {
+            repoInfo.style.display = "none";
+        }
+    }
+    </script>
 </body>
 </html>

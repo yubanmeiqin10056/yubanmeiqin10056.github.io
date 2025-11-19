@@ -3,13 +3,18 @@ layout: default
 ---
 
 <div class="welcome-section">
-    <h2>欢迎来到御坂10056号的博客</h2>
-    <p>这里记录着我的学习心得、技术笔记和生活点滴。作为一个初三学生，我正在探索编程世界的奥秘。</p>
+    <h2>御坂10056号的博客</h2>
+    <p>记录学习心得、技术笔记和生活点滴</p>
     
     <nav class="navigation">
-        <a href="#posts" class="nav-link">📝 查看博客文章</a>
-        <a href="/post/" class="nav-link">🗂️ 博客文章列表</a>
-        <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" class="nav-link" target="_blank">🔗 源代码仓库</a>
+        <a href="#posts" class="nav-link">📝 博客文章</a>
+        <a href="/post/" class="nav-link">🗂️ 文章列表</a>
+        <div class="repo-toggle">
+            <span class="nav-link repo-link" onclick="toggleRepo()">🔗 源代码</span>
+            <div id="repo-info" class="repo-info" style="display: none;">
+                <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">GitHub仓库</a>
+            </div>
+        </div>
     </nav>
 </div>
 
@@ -27,7 +32,6 @@ layout: default
                 <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
                     {{ post.date | date: "%Y年%m月%d日" }}
                 </time>
-                {% if post.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ post.author }}</span></span>{% endif %}
             </p>
         </header>
 
@@ -35,7 +39,7 @@ layout: default
             {% if post.excerpt %}
             {{ post.excerpt | strip_html }}
             {% else %}
-            {{ post.content | strip_html | truncatewords: 50 }}
+            {{ post.content | strip_html | truncatewords: 30 }}
             {% endif %}
         </div>
 
@@ -46,53 +50,59 @@ layout: default
     {% endfor %}
 </div>
 
-<div class="repository-info">
-    <h3>关于这个博客</h3>
-    <p>这个博客使用 Jekyll 构建，托管在 GitHub Pages 上。所有源代码都公开在 GitHub 上，欢迎访问和交流！</p>
-    <p><strong>仓库地址：</strong> <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io</a></p>
-</div>
+<script>
+function toggleRepo() {
+    var repoInfo = document.getElementById("repo-info");
+    if (repoInfo.style.display === "none") {
+        repoInfo.style.display = "block";
+    } else {
+        repoInfo.style.display = "none";
+    }
+}
+</script>
 
 <style>
     .welcome-section {
         background-color: rgba(255, 255, 255, 0.9);
-        padding: 30px;
+        padding: 20px;
         border-radius: 8px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         text-align: center;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
     .welcome-section h2 {
         color: #2c3e50;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
     
     .welcome-section p {
         color: #34495e;
-        margin-bottom: 20px;
-        line-height: 1.6;
+        margin-bottom: 15px;
+        line-height: 1.4;
     }
     
     .navigation {
         display: flex;
         justify-content: center;
-        gap: 20px;
+        gap: 15px;
         flex-wrap: wrap;
     }
     
-    .nav-link {
+    .nav-link, .repo-link {
         display: inline-block;
         background-color: #3498db;
         color: white;
-        padding: 12px 24px;
+        padding: 10px 20px;
         border-radius: 25px;
         text-decoration: none;
         font-weight: bold;
         transition: all 0.3s ease;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
     }
     
-    .nav-link:hover {
+    .nav-link:hover, .repo-link:hover {
         background-color: #2980b9;
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -100,21 +110,51 @@ layout: default
         text-decoration: none;
     }
     
+    .repo-toggle {
+        position: relative;
+    }
+    
+    .repo-info {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        border: 1px solid #3498db;
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        min-width: 150px;
+        text-align: center;
+    }
+    
+    .repo-info a {
+        display: block;
+        color: #3498db;
+        text-decoration: none;
+        padding: 5px 0;
+    }
+    
+    .repo-info a:hover {
+        text-decoration: underline;
+    }
+    
     .posts-list {
-        margin-top: 30px;
+        margin-top: 20px;
     }
     
     .posts-list h2 {
         color: #2c3e50;
         text-align: center;
-        margin-bottom: 30px;
-        font-size: 2em;
+        margin-bottom: 20px;
+        font-size: 1.8em;
     }
     
     .post-item {
         background-color: rgba(255, 255, 255, 0.9);
-        padding: 25px;
-        margin-bottom: 25px;
+        padding: 20px;
+        margin-bottom: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -126,12 +166,13 @@ layout: default
     }
     
     .post-header {
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
     
     .post-header h2 {
-        margin: 0 0 10px 0;
+        margin: 0 0 8px 0;
         color: #2c3e50;
+        font-size: 1.4em;
     }
     
     .post-header h2 a {
@@ -152,12 +193,12 @@ layout: default
     
     .post-excerpt {
         color: #34495e;
-        margin-bottom: 15px;
-        line-height: 1.6;
+        margin-bottom: 12px;
+        line-height: 1.5;
     }
     
     .post-footer {
-        margin-top: 15px;
+        margin-top: 12px;
     }
     
     .read-more {
@@ -172,34 +213,70 @@ layout: default
         text-decoration: underline;
     }
     
-    .repository-info {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 30px;
-        border-radius: 8px;
-        margin-top: 40px;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+        .welcome-section {
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .welcome-section h2 {
+            font-size: 1.5em;
+        }
+        
+        .navigation {
+            gap: 10px;
+        }
+        
+        .nav-link, .repo-link {
+            padding: 8px 16px;
+            font-size: 0.9em;
+        }
+        
+        .posts-list h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .post-item {
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .post-header h2 {
+            font-size: 1.2em;
+        }
+        
+        .post-excerpt {
+            font-size: 0.95em;
+        }
+        
+        .repo-info {
+            left: 0;
+            right: 0;
+            transform: none;
+            min-width: auto;
+        }
     }
     
-    .repository-info h3 {
-        color: #2c3e50;
-        margin-bottom: 15px;
-    }
-    
-    .repository-info p {
-        color: #34495e;
-        margin-bottom: 10px;
-        line-height: 1.6;
-    }
-    
-    .repository-info a {
-        color: #3498db;
-        text-decoration: none;
-        font-weight: bold;
-    }
-    
-    .repository-info a:hover {
-        color: #2980b9;
-        text-decoration: underline;
+    @media (max-width: 480px) {
+        .welcome-section {
+            padding: 10px;
+        }
+        
+        .navigation {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .nav-link, .repo-link {
+            width: 80%;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .post-item {
+            padding: 12px;
+        }
     }
 </style>
