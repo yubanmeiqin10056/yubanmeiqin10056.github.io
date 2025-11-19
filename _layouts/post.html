@@ -17,9 +17,26 @@ layout: default
                     {{ page.date | date: "%Y年%m月%d日" }}
                 </time>
             {% else %}
-                <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-                    {{ page.date | date: "%Y年%m月%d日" }}
-                </time>
+                <!-- 如果没有日期元数据，尝试从文件名提取 -->
+                {% assign filename_parts = page.name | split: '-' %}
+                {% if filename_parts.size >= 3 %}
+                    {% assign year = filename_parts[0] %}
+                    {% assign month = filename_parts[1] %}
+                    {% assign day = filename_parts[2] | split: '' | first %}
+                    {% if year.size == 4 and month and day %}
+                        <time datetime="{{ year }}-{{ month }}-{{ day }}" itemprop="datePublished">
+                            {{ year }}年{{ month }}月{{ day }}日
+                        </time>
+                    {% else %}
+                        <time datetime="{{ site.time | date_to_xmlschema }}" itemprop="datePublished">
+                            {{ site.time | date: "%Y年%m月%d日" }}
+                        </time>
+                    {% endif %}
+                {% else %}
+                    <time datetime="{{ site.time | date_to_xmlschema }}" itemprop="datePublished">
+                        {{ site.time | date: "%Y年%m月%d日" }}
+                    </time>
+                {% endif %}
             {% endif %}
         </p>
     </header>

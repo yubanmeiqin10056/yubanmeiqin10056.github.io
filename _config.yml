@@ -18,6 +18,9 @@ collections:
     output: true
     permalink: /:categories/:year/:month/:day/:title/
 
+# 日期格式设置
+timezone: Asia/Shanghai
+
 # 默认设置
 defaults:
   - scope:
@@ -31,8 +34,8 @@ defaults:
     values:
       layout: "default"
 
-# 简化文章格式：自动从文件名提取标题和日期
-# 文件名格式：任意名称.md（不再强制要求日期格式）
+# 保留Jekyll标准格式，但提供更灵活的日期处理
+# 文章文件名仍需遵循YYYY-MM-DD-标题.md格式，但提供更好的容错处理
 
 # 排除文件
 exclude:
