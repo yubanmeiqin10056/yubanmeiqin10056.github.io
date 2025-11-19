@@ -31,6 +31,9 @@ defaults:
     values:
       layout: "default"
 
+# 简化文章格式：自动从文件名提取标题和日期
+# 文件名格式：任意名称.md（不再强制要求日期格式）
+
 # 排除文件
 exclude:
   - Gemfile

@@ -25,7 +25,11 @@ layout: default
         <header class="post-header">
             <h2>
                 <a href="{{ post.url | relative_url }}">
-                    {{ post.title | escape }}
+                    {% if post.title %}
+                        {{ post.title | escape }}
+                    {% else %}
+                        {{ post.name | replace: '.md', '' | replace: '-', ' ' | capitalize }}
+                    {% endif %}
                 </a>
             </h2>
             <p class="post-meta">
