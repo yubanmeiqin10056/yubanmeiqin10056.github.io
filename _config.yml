@@ -12,11 +12,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# 文章设置
-collections:
-  posts:
-    output: true
-    permalink: /:categories/:year/:month/:day/:title/
+
 
 # 日期格式设置
 timezone: Asia/Shanghai
