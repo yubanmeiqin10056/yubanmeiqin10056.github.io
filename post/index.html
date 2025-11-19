@@ -6,9 +6,14 @@ title: 博客文章列表
 <div class="posts-archive">
     <h2>所有博客文章</h2>
     
+    <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="搜索文章标题或内容...">
+    </div>
+    
     {% assign posts = site.posts | sort: 'date' | reverse %}
+    <div id="posts-container">
     {% for post in posts %}
-    <article class="post-item">
+    <article class="post-item" data-title="{{ post.title | escape }}" data-content="{{ post.content | strip_html | escape }}">
         <header class="post-header">
             <h2>
                 <a href="{{ post.url | relative_url }}">
@@ -36,12 +41,58 @@ title: 博客文章列表
         </footer>
     </article>
     {% endfor %}
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+        const postsContainer = document.getElementById('posts-container');
+        const posts = document.querySelectorAll('.post-item');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            posts.forEach(post => {
+                const title = post.getAttribute('data-title').toLowerCase();
+                const content = post.getAttribute('data-content').toLowerCase();
+                
+                if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                    post.style.display = 'block';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
 
 <style>
     .posts-archive {
         max-width: 800px;
         margin: 0 auto;
+    }
+    
+    .search-container {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .search-input {
+        width: 100%;
+        max-width: 500px;
+        padding: 12px 20px;
+        font-size: 16px;
+        border: 2px solid #3498db;
+        border-radius: 25px;
+        box-sizing: border-box;
+        outline: none;
+        transition: border-color 0.3s ease;
+    }
+    
+    .search-input:focus {
+        border-color: #2980b9;
+        box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
     }
     
     .posts-archive h2 {
@@ -57,12 +108,16 @@ title: 博客文章列表
         margin-bottom: 25px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
     }
     
     .post-item:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .post-item[style*="display: none"] {
+        opacity: 0;
     }
     
     .post-header {

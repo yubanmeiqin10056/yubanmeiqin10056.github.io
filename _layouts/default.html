@@ -222,23 +222,9 @@
     
     <footer>
         <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}</p>
-        <div class="repo-toggle">
-            <span class="repo-link" onclick="toggleRepo()">📦 源代码仓库</span>
-            <div id="repo-info" class="repo-info">
-                <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">GitHub仓库</a>
-            </div>
+        <div class="repo-link">
+            <a href="https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io" target="_blank">📦 源代码仓库</a>
         </div>
     </footer>
-    
-    <script>
-    function toggleRepo() {
-        var repoInfo = document.getElementById("repo-info");
-        if (repoInfo.style.display === "none" || repoInfo.style.display === "") {
-            repoInfo.style.display = "block";
-        } else {
-            repoInfo.style.display = "none";
-        }
-    }
-    </script>
 </body>
 </html>
