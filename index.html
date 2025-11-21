@@ -22,12 +22,19 @@ const blog = {
 
 <style>
     .welcome-section {
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(255, 255, 255, 0.7);
         padding: 20px;
         border-radius: 8px;
         margin-bottom: 20px;
         text-align: center;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .welcome-section:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        transform: scale(1.02);
     }
     
     .welcome-section h2 {
@@ -97,6 +104,12 @@ const blog = {
         .welcome-section {
             padding: 15px;
             margin-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .welcome-section:hover {
+            background-color: rgba(255, 255, 255, 0.95);
+            transform: scale(1);
         }
         
         .welcome-section h2 {
@@ -120,7 +133,15 @@ const blog = {
     
     @media (max-width: 480px) {
         .welcome-section {
-            padding: 10px;
+            padding: 15px;
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+        }
+        
+        .welcome-section:hover {
+            background-color: rgba(255, 255, 255, 0.95);
+            transform: none;
         }
         
         .navigation {
@@ -129,9 +150,10 @@ const blog = {
         }
         
         .nav-link {
-            width: 80%;
+            width: 100%;
+            max-width: 300px;
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
     }
 </style>
