@@ -47,7 +47,26 @@ unpublished: false
 collections:
   articles:
     output: true
-    permalink: /articles/:path/
+    permalink: /article/:path/
+    
+# 配置默认值，使文章处理更一致
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "御坂10056号"
+  - scope:
+      path: ""
+      type: "articles"
+    values:
+      layout: "post"
+      author: "御坂10056号"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
 
 # 排除文件
 exclude:
