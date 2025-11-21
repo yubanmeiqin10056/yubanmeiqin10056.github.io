@@ -43,6 +43,12 @@ include:
 future: true
 unpublished: false
 
+# 自定义集合 - 用于存放任意命名的Markdown文件
+collections:
+  articles:
+    output: true
+    permalink: /articles/:path/
+
 # 排除文件
 exclude:
   - Gemfile

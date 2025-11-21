@@ -11,8 +11,10 @@ title: 博客文章列表
     </div>
     
     {% assign posts = site.posts | sort: 'date' | reverse %}
+    {% assign articles = site.articles | sort: 'date' | reverse %}
+    {% assign all_posts = posts | concat: articles | sort: 'date' | reverse %}
     <div id="posts-container">
-    {% for post in posts %}
+    {% for post in all_posts %}
     <article class="post-item" data-title="{{ post.title | escape }}" data-content="{{ post.content | strip_html | escape }}" data-original-excerpt="{% if post.excerpt %}{{ post.excerpt | strip_html | escape }}{% else %}{{ post.content | strip_html | truncatewords: 50 | escape }}{% endif %}">
         <header class="post-header">
             <h2>
