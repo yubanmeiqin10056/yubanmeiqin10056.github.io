@@ -50,13 +50,8 @@ collections:
     permalink: /article/:path/
     
 # 配置默认值，使文章处理更一致
+# 默认设置
 defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-      author: "御坂10056号"
   - scope:
       path: ""
       type: "articles"
