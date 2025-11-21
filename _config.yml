@@ -30,6 +30,12 @@ defaults:
     values:
       layout: "default"
 
+# 禁用对某些文件类型的转换限制
+include:
+  - "*.md"
+  - "*.markdown"
+  - "_posts/*.md"
+
 # 保留Jekyll标准格式，但提供更灵活的日期处理
 # 文章文件名仍需遵循YYYY-MM-DD-标题.md格式，但提供更好的容错处理
 
