@@ -16,65 +16,22 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Check and add front matter to new articles
+        fetch-depth: 0  # 获取完整历史以便推送
+
+    - name: Add front matter to articles without it
       run: |
         #!/bin/bash
-        # 设置 Git 用户信息
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action"
-        
-        # 临时使用提供的 token 克隆仓库
-        git clone "https://github.com/yubanmeiqin10056/yubanmeiqin10056.github.io.git" repo_temp
-        cd repo_temp
-        
-        # 遍历 _articles 目录中的所有 markdown 文件
-        find _articles -name "*.md" -o -name "*.markdown" | while read -r file; do
-          # 检查文件是否已经包含 front matter
-          if [[ -f "$file" ]] && ! head -n 3 "$file" | grep -q '^---$'; then
-            echo "Adding front matter to: $file"
-            
-            # 创建临时文件
-            temp_file=$(mktemp)
-            
-            # 添加 front matter
-            echo "---" > "$temp_file"
-            echo "layout: post" >> "$temp_file"
-            echo "---" >> "$temp_file"
-            echo "" >> "$temp_file"
-            
-            # 添加原文件内容
-            cat "$file" >> "$temp_file"
-            
-            # 移动临时文件到原位置
-            mv "$temp_file" "$file"
-          else
-            echo "File already has front matter or doesn't exist: $file"
-          fi
-        done
-        
-        # 检查是否有更改
-        if [[ -n $(git status --porcelain) ]]; then
-          git add .
-          git commit -m "Auto-add front matter to articles [skip ci]" || echo "Nothing to commit"
-          git push "https://yubanmeiqin10056:${{ secrets.WORKFLOW_TOKEN || secrets.GITHUB_TOKEN }}@github.com/yubanmeiqin10056/yubanmeiqin10056.github.io.git" || echo "Failed to push changes"
-        else
-          echo "No changes made"
-        fi
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Add front matter with proper token
-      run: |
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
-        
         # 遍历 _articles 目录中的所有 markdown 文件
-        for file in _articles/**/*.md _articles/**/*.markdown; do
-          if [[ -f "$file" ]]; then
-            # 检查是否已包含 front matter
-            has_front_matter=$(head -n 3 "$file" | grep -c '^---$' || true)
-            if [[ $has_front_matter -lt 2 ]]; then
+        find _articles -name "*.md" -type f -o -name "*.markdown" -type f | while read -r file; do
+          # 检查文件是否已经包含 front matter
+          if [ -f "$file" ]; then
+            # 检查前3行是否有至少两个 '---' 行（front matter 的开头和结尾）
+            front_matter_lines=$(head -n 3 "$file" 2>/dev/null | grep -c '^--- || echo 0)
+            
+            if [ "$front_matter_lines" -lt 2 ]; then
               echo "Adding front matter to: $file"
               
               # 创建临时文件并添加 front matter
@@ -91,13 +48,11 @@ jobs:
           fi
         done
         
-        # 提交更改（如果有的话）
-        if [[ -n $(git status --porcelain) ]]; then
+        # 检查是否有更改并提交
+        if [ -n "$(git status --porcelain)" ]; then
           git add .
-          git commit -m "Auto-add front matter to articles [skip ci]" -m "This commit adds required front matter to articles without it."
+          git commit -m "Auto-add front matter to articles [skip ci]" -m "Automatically added required front matter to articles that were missing it."
           git push
         else
           echo "No changes to commit"
         fi
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
