@@ -13,7 +13,7 @@ title: 博客文章列表
     {% assign posts = site.posts | sort: 'date' | reverse %}
     <div id="posts-container">
     {% for post in posts %}
-    <article class="post-item" data-title="{{ post.title | escape }}" data-content="{{ post.content | strip_html | escape }}">
+    <article class="post-item" data-title="{{ post.title | escape }}" data-content="{{ post.content | strip_html | escape }}" data-original-excerpt="{% if post.excerpt %}{{ post.excerpt | strip_html | escape }}{% else %}{{ post.content | strip_html | truncatewords: 50 | escape }}{% endif %}">
         <header class="post-header">
             <h2>
                 <a href="{{ post.url | relative_url }}">
@@ -59,6 +59,48 @@ title: 博客文章列表
                 
                 if (title.includes(searchTerm) || content.includes(searchTerm)) {
                     post.style.display = 'block';
+                    
+                    // 如果有搜索词，更新摘要以显示匹配的内容
+                    if (searchTerm.trim() !== '') {
+                        const postExcerpt = post.querySelector('.post-excerpt');
+                        if (postExcerpt) {
+                            // 如果标题匹配，优先显示包含匹配词的正文内容
+                            if (content.includes(searchTerm)) {
+                                // 在内容中找到搜索词附近的内容
+                                const searchTermIndex = content.indexOf(searchTerm);
+                                const start = Math.max(0, searchTermIndex - 100);
+                                const end = Math.min(content.length, searchTermIndex + searchTerm.length + 100);
+                                let excerptText = content.substring(start, end);
+                                
+                                // 确保不会截断单词
+                                if (start > 0) {
+                                    const lastSpace = excerptText.lastIndexOf(' ');
+                                    if (lastSpace > 0) {
+                                        excerptText = '...' + excerptText.substring(lastSpace);
+                                    }
+                                }
+                                if (end < content.length) {
+                                    const nextSpace = excerptText.indexOf(' ', excerptText.length - 50);
+                                    if (nextSpace !== -1) {
+                                        excerptText = excerptText.substring(0, nextSpace) + '...';
+                                    }
+                                }
+                                
+                                // 高亮搜索词
+                                excerptText = excerptText.replace(new RegExp('(' + searchTerm + ')', 'gi'), '<mark>$1</mark>');
+                                postExcerpt.innerHTML = excerptText;
+                            }
+                        }
+                    } else {
+                        // 如果没有搜索词，恢复原始摘要
+                        const originalExcerpt = post.getAttribute('data-original-excerpt');
+                        if (originalExcerpt) {
+                            const postExcerpt = post.querySelector('.post-excerpt');
+                            if (postExcerpt) {
+                                postExcerpt.innerHTML = originalExcerpt;
+                            }
+                        }
+                    }
                 } else {
                     post.style.display = 'none';
                 }
@@ -165,5 +207,11 @@ title: 博客文章列表
     .read-more:hover {
         color: #2980b9;
         text-decoration: underline;
+    }
+    
+    mark {
+        background-color: #fff59d;
+        padding: 2px 4px;
+        border-radius: 3px;
     }
 </style>
