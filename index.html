@@ -6,12 +6,33 @@ layout: default
     <h2>一个随缘更新的博客</h2>
     <p>梦到啥我就往这上面写</p>
     
-    <pre class="random-code"><code>console.log("Hello, World!");
+    <pre id="code-animation" class="random-code"><code>console.log("Hello, World!");
 // 欢迎来到我的博客
 const blog = {
   title: "御坂10056号的博客",
   description: "梦到啥我就往这上面写"
 };</code></pre>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // 简单的ASCII动画效果
+        const codeAnimation = document.getElementById('code-animation');
+        if (codeAnimation) {
+          // 简单的字符跳动效果
+          const originalCode = codeAnimation.textContent;
+          const chars = ['|', '/', '-', '\\'];
+          let charIndex = 0;
+          
+          setInterval(() => {
+            const lines = originalCode.split('\n');
+            // 在第一行末尾添加动画字符
+            lines[0] = lines[0].replace(/[|/\\-]$/, chars[charIndex]);
+            codeAnimation.textContent = lines.join('\n');
+            charIndex = (charIndex + 1) % chars.length;
+          }, 500);
+        }
+      });
+    </script>
     
     <nav class="navigation">
         <a href="/bloglist/" class="nav-link">📝 博客文章</a>
