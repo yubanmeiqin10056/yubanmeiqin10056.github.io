@@ -29,7 +29,33 @@ jobs:
           # 检查文件是否已经包含 front matter
           if [ -f "$file" ]; then
             # 检查前3行是否有至少两个 '---' 行（front matter 的开头和结尾）
-            front_matter_lines=$(head -n 3 "$file" 2>/dev/null | grep -c '^--- || echo 0)
+            front_matter_lines=$(head -n 3 "$file" 2>/dev/null | grep -c '^---
+            
+            if [ "$front_matter_lines" -lt 2 ]; then
+              echo "Adding front matter to: $file"
+              
+              # 创建临时文件并添加 front matter
+              temp_file=$(mktemp)
+              echo "---" > "$temp_file"
+              echo "layout: post" >> "$temp_file"
+              echo "---" >> "$temp_file"
+              echo "" >> "$temp_file"
+              cat "$file" >> "$temp_file"
+              mv "$temp_file" "$file"
+            else
+              echo "File already has front matter: $file"
+            fi
+          fi
+        done
+        
+        # 检查是否有更改并提交
+        if [ -n "$(git status --porcelain)" ]; then
+          git add .
+          git commit -m "Auto-add front matter to articles [skip ci]" -m "Automatically added required front matter to articles that were missing it."
+          git push
+        else
+          echo "No changes to commit"
+        fi || echo 0)
             
             if [ "$front_matter_lines" -lt 2 ]; then
               echo "Adding front matter to: $file"
