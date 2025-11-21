@@ -1,3 +1,7 @@
+---
+layout: post
+---
+
 # 测试自动添加 front matter
 
 这是一篇测试文章，用于验证 GitHub Action 是否能够自动添加 front matter。
