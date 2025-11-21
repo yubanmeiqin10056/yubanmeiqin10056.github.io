@@ -12,14 +12,8 @@ layout: default
       document.addEventListener('DOMContentLoaded', function() {
         const animationText = document.getElementById('animation-text');
         
-        // 您指定的字符图案
-        const asciiArt = `                                                                                           
-                                                                                           
-                                                    <pre id="code-animation" class="random-code"><code id="animation-text">Loading...</code></pre>
-    
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const animationText = document.getElementById('animation-text');
+        // 检查是否为移动设备
+        const isMobile = window.innerWidth <= 768;
         
         // 您指定的字符图案（按行分割）
         const asciiArtLines = [
@@ -72,63 +66,48 @@ layout: default
           '};'
         ];
         
-        // 逐行显示ASCII艺术
-        animationText.textContent = ''; // 清空当前内容
-        let currentLine = 0;
-        
-        const asciiPrinter = setInterval(() => {
-          if (currentLine < asciiArtLines.length) {
-            animationText.textContent += asciiArtLines[currentLine] + '\n';
-            currentLine++;
-          } else {
-            clearInterval(asciiPrinter);
-            
-            // 显示完整字符画1秒后切换到介绍信息
-            setTimeout(() => {
-              animationText.textContent = ''; // 清空当前内容
-              let introCurrentLine = 0;
-              
-              const typeWriter = setInterval(() => {
-                if (introCurrentLine < introLines.length) {
-                  animationText.textContent += introLines[introCurrentLine] + '\n';
-                  introCurrentLine++;
-                } else {
-                  clearInterval(typeWriter);
-                }
-              }, 300); // 每300毫秒显示一行
-            }, 1000); // 完整显示字符画后等待1秒
-          }
-        }, 50); // 每50毫秒显示一行，使打印速度更快
-      });
-    </script>               `;
-
-        // 网站介绍文本（用于逐行显示）
-        const introLines = [
-          'console.log("Hello, World!");',
-          '// 欢迎来到我的博客',
-          'const blog = {',
-          '  title: "御坂10056号的博客",',
-          '  description: "梦到啥我就往这上面写"',
-          '};'
-        ];
-        
-        // 首先显示指定的ASCII艺术3秒
-        animationText.textContent = asciiArt;
-        
-        // 3秒后切换到逐行显示的介绍信息
-        setTimeout(() => {
+        if (isMobile) {
+          // 移动设备：直接显示介绍信息
           animationText.textContent = ''; // 清空当前内容
-          let currentLine = 0;
+          let introCurrentLine = 0;
           
           const typeWriter = setInterval(() => {
-            if (currentLine < introLines.length) {
-              animationText.textContent += introLines[currentLine] + '\n';
-              currentLine++;
+            if (introCurrentLine < introLines.length) {
+              animationText.textContent += introLines[introCurrentLine] + '\n';
+              introCurrentLine++;
             } else {
               clearInterval(typeWriter);
             }
-          }, 300); // 每300毫秒显示一行
-        }, 3000); // 3秒后切换
+          }, 150); // 移动设备上更快的打字速度
+        } else {
+          // 电脑端：逐行显示ASCII艺术
+          animationText.textContent = ''; // 清空当前内容
+          let currentLine = 0;
+          
+          const asciiPrinter = setInterval(() => {
+            if (currentLine < asciiArtLines.length) {
+              animationText.textContent += asciiArtLines[currentLine] + '\n';
+              currentLine++;
+            } else {
+              clearInterval(asciiPrinter);
+              
+              // 显示完整字符画1秒后切换到介绍信息
+              setTimeout(() => {
+                animationText.textContent = ''; // 清空当前内容
+                let introCurrentLine = 0;
+                
+                const typeWriter = setInterval(() => {
+                  if (introCurrentLine < introLines.length) {
+                    animationText.textContent += introLines[introCurrentLine] + '\n';
+                    introCurrentLine++;
+                  } else {
+                    clearInterval(typeWriter);
+                  }
+                }, 300); // 每300毫秒显示一行
+              }, 1000); // 完整显示字符画后等待1秒
+            }
+          }, 50); // 每50毫秒显示一行
+        }
       });
     </script>
     
