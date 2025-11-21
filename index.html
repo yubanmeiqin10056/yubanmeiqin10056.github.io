@@ -6,31 +6,82 @@ layout: default
     <h2>一个随缘更新的博客</h2>
     <p>梦到啥我就往这上面写</p>
     
-    <pre id="code-animation" class="random-code"><code>console.log("Hello, World!");
+    <pre id="code-animation" class="random-code"><code id="animation-text">Loading...</code></pre>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const animationText = document.getElementById('animation-text');
+        
+        // 简单的 ASCII 风格动画帧（模拟视频效果）
+        const animationFrames = [
+          `
+  ######
+ #......#
+#........#
+#........#
+ #......#
+  ######
+          `,
+          `
+   ###
+  #...#
+ #.....#
+#.......#
+ #.....#
+  #...#
+   ###
+          `,
+          `
+  #####
+ #.....#
+#.......#
+#.......
+ #.....
+  #####
+          `,
+          `
+  #####
+ #.....#
+#.......#
+#.......#
+ #.....#
+  #####
+          `,
+          `
+    #
+   ###
+  #####
+ #######
+    #
+    #
+          `
+        ];
+        
+        // 网站介绍文本
+        const introText = `console.log("Hello, World!");
 // 欢迎来到我的博客
 const blog = {
   title: "御坂10056号的博客",
   description: "梦到啥我就往这上面写"
-};</code></pre>
-    
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // 简单的ASCII动画效果
-        const codeAnimation = document.getElementById('code-animation');
-        if (codeAnimation) {
-          // 简单的字符跳动效果
-          const originalCode = codeAnimation.textContent;
-          const chars = ['|', '/', '-', '\\'];
-          let charIndex = 0;
-          
-          setInterval(() => {
-            const lines = originalCode.split('\n');
-            // 在第一行末尾添加动画字符
-            lines[0] = lines[0].replace(/[|/\\-]$/, chars[charIndex]);
-            codeAnimation.textContent = lines.join('\n');
-            charIndex = (charIndex + 1) % chars.length;
-          }, 500);
-        }
+};`;
+        
+        let frameIndex = 0;
+        let animationPhase = 'animation'; // 'animation' or 'intro'
+        
+        // 播放动画
+        const animationInterval = setInterval(() => {
+          if (animationPhase === 'animation') {
+            animationText.textContent = animationFrames[frameIndex];
+            frameIndex = (frameIndex + 1) % animationFrames.length;
+          }
+        }, 300); // 每300毫秒切换一帧
+        
+        // 10秒后切换到网站介绍
+        setTimeout(() => {
+          clearInterval(animationInterval);
+          animationPhase = 'intro';
+          animationText.textContent = introText;
+        }, 10000); // 10秒后切换
       });
     </script>
     
