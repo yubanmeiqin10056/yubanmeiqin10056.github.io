@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小宇宙播客下载器</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #1a1d24; --border: #2a2e38;
+    --text: #e4e6eb; --text-dim: #8b8f99;
+    --accent: #25B4E1; --accent-dim: #1a8eae;
+    --success: #4caf50; --error: #f44336;
+    --radius: 14px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; display: flex; align-items: center;
+    justify-content: center; padding: 20px;
+  }
+  .container { width: 100%; max-width: 560px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px;
+  }
+  .logo { text-align: center; margin-bottom: 28px; }
+  .logo-icon {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--accent), #6d5dd6);
+    border-radius: 16px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 26px; margin-bottom: 12px;
+  }
+  .logo h1 { font-size: 20px; font-weight: 700; }
+  .logo p { color: var(--text-dim); font-size: 13px; margin-top: 4px; }
+  .input-group { margin-bottom: 20px; }
+  .input-group label {
+    display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 8px;
+  }
+  .input-wrap { display: flex; gap: 10px; }
+  input[type="text"] {
+    flex: 1; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 16px; color: var(--text); font-size: 14px;
+    outline: none; transition: border-color .2s;
+  }
+  input[type="text"]:focus { border-color: var(--accent); }
+  button {
+    background: var(--accent); color: #fff; border: none; border-radius: 10px;
+    padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background .2s, opacity .2s; white-space: nowrap;
+  }
+  button:hover:not(:disabled) { background: var(--accent-dim); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  .result {
+    display: none; margin-top: 24px; border-top: 1px solid var(--border); padding-top: 24px;
+  }
+  .result.show { display: block; }
+  .result-cover { display: flex; gap: 14px; align-items: center; margin-bottom: 16px; }
+  .result-cover img {
+    width: 64px; height: 64px; border-radius: 8px; object-fit: cover; flex-shrink: 0;
+  }
+  .result-cover .info { flex: 1; min-width: 0; }
+  .result-cover .title {
+    font-size: 14px; font-weight: 600; margin-bottom: 4px;
+    overflow: hidden; text-overflow: ellipsis;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  }
+  .result-cover .podcast-name { font-size: 12px; color: var(--text-dim); }
+  .result-item {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; margin-bottom: 12px;
+  }
+  .result-item .label {
+    font-size: 12px; color: var(--text-dim); margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+  .result-item .value { font-size: 13px; word-break: break-all; line-height: 1.6; }
+  .result-item .value.mono {
+    font-family: "SF Mono", monospace; color: var(--accent);
+  }
+  .btn-download {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 14px; font-size: 15px;
+    background: var(--success);
+  }
+  .btn-download:hover:not(:disabled) { background: #3d9142; }
+  .btn-copy {
+    background: var(--bg); border: 1px solid var(--border); color: var(--text-dim);
+    padding: 4px 12px; font-size: 12px; border-radius: 6px; cursor: pointer; transition: all .2s;
+    flex-shrink: 0;
+  }
+  .btn-copy:hover { color: var(--accent); border-color: var(--accent); }
+  .status {
+    text-align: center; padding: 16px; color: var(--text-dim); font-size: 14px; line-height: 1.6;
+  }
+  .status.error { color: var(--error); }
+  .spinner {
+    display: inline-block; width: 18px; height: 18px;
+    border: 2px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin .6s linear infinite;
+    vertical-align: middle; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .tips {
+    margin-top: 20px; font-size: 12px; color: var(--text-dim); line-height: 1.8;
+    border-top: 1px solid var(--border); padding-top: 16px;
+  }
+  .tips strong { color: var(--text); }
+  .tips code { background: var(--bg); padding: 2px 6px; border-radius: 4px; font-size: 11px; color: var(--accent); }
+  .tips a { color: var(--accent); text-decoration: none; }
+  .tips a:hover { text-decoration: underline; }
+  .badge {
+    display: inline-block; padding: 2px 8px; font-size: 11px; border-radius: 4px;
+    background: rgba(76,175,80,.15); color: var(--success); margin-left: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <div class="logo">
+      <div class="logo-icon">🎙️</div>
+      <h1>小宇宙播客下载器</h1>
+      <p>输入分享链接，提取音频并下载 M4A</p>
+    </div>
+
+    <div class="input-group">
+      <label>小宇宙分享链接</label>
+      <div class="input-wrap">
+        <input type="text" id="shareUrl" placeholder="https://www.xiaoyuzhoufm.com/episode/..." />
+        <button id="btnParse" onclick="parseUrl()">解析</button>
+      </div>
+    </div>
+
+    <div id="status" class="status" style="display:none;"></div>
+
+    <div id="result" class="result">
+      <div class="result-cover" id="resultCover"></div>
+      <div class="result-item">
+        <div class="label">音频直链 (M4A)</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div id="audioUrl" class="value mono" style="flex:1;"></div>
+          <button class="btn-copy" onclick="copyText(getAudioUrl())">复制</button>
+        </div>
+      </div>
+      <button class="btn-download" id="btnDownload" onclick="downloadM4A()">
+        ⬇️ 下载 M4A 音频
+      </button>
+    </div>
+
+    <div class="tips">
+      <strong>使用方法：</strong><br>
+      1. 在小宇宙 App 中点击「分享」→「复制链接」<br>
+      2. 粘贴到上方输入框，点击「解析」<br>
+      3. 点击「下载 M4A」调用浏览器下载<span class="badge">速度快</span><br>
+      <br>
+      <strong>需要转 MP3？</strong><br>
+      下载完成后，打开 <a href="m4a-to-mp3.html">M4A 转 MP3 工具</a>，选择已下载的 M4A 文件即可转换<br>
+      <br>
+      <strong>说明：</strong><br>
+      • 浏览器原生下载，速度等于网络带宽<br>
+      • 音频格式为 M4A，部分播放器可直接播放<br>
+      • 如果跨域被拦截，会自动切换到 CORS 代理解析
+    </div>
+  </div>
+</div>
+
+<script>
+let episodeData = null;
+
+async function parseUrl() {
+  const input = document.getElementById('shareUrl').value.trim();
+  if (!input) { showStatus('请输入分享链接', true); return; }
+
+  let url = input;
+  if (!url.startsWith('http')) {
+    if (url.startsWith('xiaoyuzhoufm.com')) url = 'https://www.' + url;
+    else if (!url.includes('/')) url = 'https://www.xiaoyuzhoufm.com/episode/' + url;
+    else url = 'https://' + url;
+  }
+  if (!url.includes('xiaoyuzhoufm.com/episode/')) {
+    showStatus('链接格式不正确，请输入小宇宙 episode 分享链接', true);
+    return;
+  }
+
+  const btn = document.getElementById('btnParse');
+  btn.disabled = true;
+  document.getElementById('result').classList.remove('show');
+  showStatus('<span class="spinner"></span>正在解析链接...');
+
+  try {
+    const html = await fetchHtml(url);
+    episodeData = extractAudioInfo(html);
+    episodeData.shareUrl = url;
+    displayResult(episodeData);
+  } catch (err) {
+    showStatus('<span class="spinner"></span>尝试通过代理解析...');
+    try {
+      const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+      const html = await fetchHtml(proxyUrl);
+      episodeData = extractAudioInfo(html);
+      episodeData.shareUrl = url;
+      displayResult(episodeData);
+    } catch (err2) {
+      showStatus('解析失败: ' + err2.message, true);
+    }
+  }
+  btn.disabled = false;
+}
+
+async function fetchHtml(url) {
+  const resp = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+  if (!resp.ok) throw new Error('HTTP ' + resp.status);
+  return await resp.text();
+}
+
+function extractAudioInfo(html) {
+  let audioUrl = null;
+  const ogMatch = html.match(/og:audio"[^>]*content="([^"]+)"/i);
+  if (ogMatch) audioUrl = ogMatch[1];
+  if (!audioUrl) {
+    const ldMatch = html.match(/"contentUrl"\s*:\s*"([^"]+)"/);
+    if (ldMatch) audioUrl = ldMatch[1];
+  }
+  if (!audioUrl) {
+    const cdnMatch = html.match(/(https?:\/\/media\.xyzcdn\.net\/[^"'\s]+)/);
+    if (cdnMatch) audioUrl = cdnMatch[1];
+  }
+  if (!audioUrl) throw new Error('未能提取音频链接');
+
+  const ogTitleMatch = html.match(/og:title"[^>]*content="([^"]+)"/);
+  const title = (ogTitleMatch && ogTitleMatch[1]) || '未知节目';
+  const ogImageMatch = html.match(/og:image"[^>]*content="([^"]+)"/);
+  const cover = (ogImageMatch && ogImageMatch[1]) || '';
+  const podcastMatch = html.match(/"partOfSeries"[^}]*"name"\s*:\s*"([^"]+)"/);
+  const podcastName = (podcastMatch && podcastMatch[1]) || '';
+  const dateMatch = html.match(/"datePublished"\s*:\s*"([^"]+)"/);
+  const pubDate = (dateMatch && dateMatch[1]) || '';
+  const durationMatch = html.match(/"timeRequired"\s*:\s*"([^"]+)"/);
+  const duration = (durationMatch && durationMatch[1]) || '';
+
+  return { audioUrl, title, cover, podcastName, pubDate, duration };
+}
+
+function displayResult(data) {
+  const coverEl = document.getElementById('resultCover');
+  coverEl.innerHTML = '';
+  if (data.cover) {
+    const img = document.createElement('img');
+    img.src = data.cover; img.alt = 'cover';
+    img.onerror = function() { this.style.display = 'none'; };
+    coverEl.appendChild(img);
+  }
+  const info = document.createElement('div');
+  info.className = 'info';
+  info.innerHTML = `
+    <div class="title">${escapeHtml(data.title)}</div>
+    <div class="podcast-name">
+      ${data.podcastName ? '🎙️ ' + escapeHtml(data.podcastName) : ''}
+      ${data.duration ? ' · ' + escapeHtml(data.duration.replace('PT', '')) : ''}
+      ${data.pubDate ? ' · ' + escapeHtml(data.pubDate.slice(0, 10)) : ''}
+    </div>`;
+  coverEl.appendChild(info);
+  document.getElementById('audioUrl').textContent = data.audioUrl;
+  document.getElementById('status').style.display = 'none';
+  document.getElementById('result').classList.add('show');
+}
+
+function getAudioUrl() {
+  return episodeData ? episodeData.audioUrl : '';
+}
+
+function downloadM4A() {
+  if (!episodeData || !episodeData.audioUrl) return;
+  // 用浏览器原生下载，速度快
+  var a = document.createElement('a');
+  a.href = episodeData.audioUrl;
+  a.download = '';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function showStatus(msg, isError) {
+  var el = document.getElementById('status');
+  el.innerHTML = msg;
+  el.className = 'status' + (isError ? ' error' : '');
+  el.style.display = 'block';
+}
+
+function copyText(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      showCopyFeedback(event);
+    }).catch(function() {
+      fallbackCopy(text); showCopyFeedback(event);
+    });
+  } else {
+    fallbackCopy(text); showCopyFeedback(event);
+  }
+}
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+}
+function showCopyFeedback(e) {
+  var btn = e.target.closest('.btn-copy'); if (!btn) return;
+  var orig = btn.textContent; btn.textContent = '已复制';
+  setTimeout(function() { btn.textContent = orig; }, 1500);
+}
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+           .replace(/"/g, '"').replace(/'/g, '&#039;');
+}
+
+document.getElementById('shareUrl').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') parseUrl();
+});
+</script>
+</body>
+</html>
